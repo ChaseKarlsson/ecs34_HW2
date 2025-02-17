@@ -8,7 +8,7 @@ struct CDSVWriter::SImplementation {
     bool quoteall;
 };
 
-CDSVWriter::CDSVWriter(std::shared_ptr<CDataSink> sink, char delimiter, bool quoteall = false) : DImplementation(std::make_unique<SImplementation>()) {
+CDSVWriter::CDSVWriter(std::shared_ptr<CDataSink> sink, char delimiter, bool quoteall) : DImplementation(std::make_unique<SImplementation>()) {
     DImplementation->sink = sink;
     DImplementation->delimiter = delimiter;
     DImplementation->quoteall = quoteall;
