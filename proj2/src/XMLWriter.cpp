@@ -1,6 +1,10 @@
 #include "XMLWriter.h"
 
 
+struct CXMLReader::SImplementation {
+
+};
+
 CXMLWriter::CXMLWriter(std::shared_ptr< CDataSink > sink) {
 
 }
