@@ -77,7 +77,7 @@ $(TEST_STRDATASINK): $(STRDATASINK_OBJS) | $(BIN_DIR)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 # testdsv: DSV reader/writer and its tests
-$(TEST_DSV): $(DSV_OBJS) | $(BIN_DIR)
+$(TEST_DSV): $(DSV_OBJS) $(OBJ_DIR)/StringDataSource.o $(OBJ_DIR)/StringDataSink.o | $(BIN_DIR)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 # testxml: XML reader/writer and its tests
