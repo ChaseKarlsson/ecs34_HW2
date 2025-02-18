@@ -81,7 +81,7 @@ $(TEST_DSV): $(DSV_OBJS) $(OBJ_DIR)/StringDataSource.o $(OBJ_DIR)/StringDataSink
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 # testxml: XML reader/writer and its tests
-$(TEST_XML): $(XML_OBJS) | $(BIN_DIR)
+$(TEST_XML): $(XML_OBJS) $(OBJ_DIR)/StringDataSource.o $(OBJ_DIR)/StringDataSink.o | $(BIN_DIR)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 # Target to run all tests
