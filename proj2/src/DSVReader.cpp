@@ -55,10 +55,8 @@ bool CDSVReader::ReadRow(std::vector<std::string> &row) {
             field.clear();  
         } else if (chr == '\n' && !quotes) {
             // end of row if not inside quotes
-            if (!field.empty()) {
-                row.push_back(field);  // add last field
-            }
-            break;  
+            row.push_back(field);  // add last field
+            return true;  
         } else {
             // append normally
             field += chr;
