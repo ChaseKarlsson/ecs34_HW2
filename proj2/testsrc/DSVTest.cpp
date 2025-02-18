@@ -4,7 +4,6 @@
 #include "DSVWriter.h"
 #include "DSVReader.h"
 
-/*
 // test DSVWriter
 TEST(DSVWriter, WriteRowTest) {
     std::shared_ptr<CDataSink> sink = std::make_shared<CStringDataSink>();
@@ -125,4 +124,4 @@ TEST(DSVReader, NuanceTests) {
     EXPECT_EQ(row4[2], "a");
     EXPECT_EQ(row4[3], "test");
 }
-*/
+
