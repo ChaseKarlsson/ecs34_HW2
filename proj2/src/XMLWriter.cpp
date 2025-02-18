@@ -6,6 +6,23 @@
 #include <vector>
 #include <memory>
 
+// Helper function to escape special XML characters
+static std::string EscapeXML(const std::string &data) {
+    std::string result;
+    result.reserve(data.size());
+    for (char c : data){
+        switch (c) {
+            case '&': result += "&amp;"; break;
+            case '<': result += "&lt;"; break;
+            case '>': result += "&gt;"; break;
+            case '"': result += "&quot;"; break;
+            case '\'': result += "&apos;"; break;
+            default: result.push_back(c); break;
+        }
+    }
+    return result;
+}
+
 // Private implementation structure for CXMLWriter (the PIMPL idiom)
 struct CXMLWriter::SImplementation {
     std::shared_ptr<CDataSink> DSink; // Data sink to write output
@@ -63,7 +80,7 @@ bool CXMLWriter::WriteEntity(const SXMLEntity &entity)
             for (const auto &attr : entity.DAttributes)
             {
                 // Assume TAttribute is defined as std::pair<std::string, std::string>
-                tag += " " + attr.first + "=\"" + attr.second + "\"";
+                tag += " " + attr.first + "=\"" + EscapeXML(attr.second) + "\"";
             }
             tag += ">";
             written = DImplementation->Write(tag);
@@ -93,7 +110,7 @@ bool CXMLWriter::WriteEntity(const SXMLEntity &entity)
             std::string tag = "<" + entity.DNameData;
             for (const auto &attr : entity.DAttributes)
             {
-                tag += " " + attr.first + "=\"" + attr.second + "\"";
+                tag += " " + attr.first + "=\"" + EscapeXML(attr.second) + "\"";
             }
             tag += "/>";
             written = DImplementation->Write(tag);
