@@ -28,12 +28,14 @@ bool CDSVReader::ReadRow(std::vector<std::string> &row) {
     std::string field;  // current field
     bool quotes = false; // are we in quotes
     char chr;
+    bool containschar = false;
 
     while (true) {
         if (!DImplementation->src->Get(chr)) {
             // break if no new chr
             break;
         }
+        containschar = true;
         if (chr == '"') {
             if (quotes) {
                 // check if end quote
@@ -62,6 +64,9 @@ bool CDSVReader::ReadRow(std::vector<std::string> &row) {
             field += chr;
         }
     }
-
+    if (containschar){
+        row.push_back(field);
+        return true;
+    }
     return !row.empty();  // true if the row contains any data
 }
