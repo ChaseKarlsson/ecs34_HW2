@@ -65,10 +65,19 @@ struct CXMLReader::SImplementation {
         }
         SImplementation* impl = static_cast<SImplementation*>(userData);
         std::string data(s, len);
-        SXMLEntity entity;
-        entity.DType = SXMLEntity::EType::CharData;
-        entity.DNameData = data;
-        impl->DQueue.push_back(entity);
+        // if character data event after another
+        if (!impl->DQueue.empty() && impl->DQueue.back().DType == SXMLEntity::EType::CharData)
+        {
+        // Append the new data to the previous CharData event
+            impl->DQueue.back().DNameData.append(data);
+        }
+        else
+        {
+            SXMLEntity entity;
+            entity.DType = SXMLEntity::EType::CharData;
+            entity.DNameData = data;
+            impl->DQueue.push_back(entity);
+        }
     }
 };
 
