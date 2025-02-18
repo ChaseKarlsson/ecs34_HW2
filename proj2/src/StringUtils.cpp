@@ -129,7 +129,7 @@ std::string Strip(const std::string &str) noexcept{
 
 std::string Center(const std::string &str, int width, char fill) noexcept{
     //Small width edge case
-    if (width <= str.length())
+    if (width <= (int)str.length())
     {
         return str;
     }
@@ -155,7 +155,7 @@ std::string Center(const std::string &str, int width, char fill) noexcept{
 }
 
 std::string LJust(const std::string &str, int width, char fill) noexcept{
-    if (width <= str.length())
+    if (width <= (int)str.length())
     {
         return str;
     }
@@ -167,7 +167,7 @@ std::string LJust(const std::string &str, int width, char fill) noexcept{
 }
 
 std::string RJust(const std::string &str, int width, char fill) noexcept{
-    if (width <= str.length())
+    if (width <= (int)str.length())
     {
         return str;
     }
