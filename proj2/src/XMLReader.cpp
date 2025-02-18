@@ -91,7 +91,7 @@ bool CXMLReader::ReadEntity(SXMLEntity &entity, bool skipcdata)
     {
         std::vector<char> buffer;
         const std::size_t chunkSize = 1024;
-        bool gotData = DImplementation->DSource->Read(buffer, chunkSize);
+        DImplementation->DSource->Read(buffer, chunkSize);
         int isFinal = DImplementation->DSource->End() ? 1 : 0;
 
         if (buffer.empty() && isFinal == 1)
