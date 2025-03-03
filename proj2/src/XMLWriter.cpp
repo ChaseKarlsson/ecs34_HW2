@@ -116,6 +116,13 @@ bool CXMLWriter::WriteEntity(const SXMLEntity &entity)
             written = DImplementation->Write(tag);
             break;
         }
+        case SXMLEntity::EType::CharData:
+        {
+            // Write text content inside an element
+            std::string text = EscapeXML(entity.DNameData);
+            written = DImplementation->Write(text);
+            break;
+        }
         default:
             // Unknown type return false.
             written = false;
