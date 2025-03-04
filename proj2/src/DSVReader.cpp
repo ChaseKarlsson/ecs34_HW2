@@ -37,17 +37,22 @@ bool CDSVReader::ReadRow(std::vector<std::string> &row) {
         }
         containschar = true;
         if (chr == '"') {
-            if (quotes) {
-                // check if end quote
-                if (DImplementation->src->Peek(chr) && chr == '"') {
-                    field += '"'; //   
-                    DImplementation->src->Get(chr); // next char
-                } else {
-                    quotes = false; // no longer in quotes
-                }
-            } else {
-                // enter quotes
+            if (!quotes) {
+                // add opening quote to field
                 quotes = true;
+                field += '"';
+            } else {
+                // We're already in a quoted section
+                if (DImplementation->src->Peek(chr) && chr == '"') {
+                    // Escaped quote: add a single quote and consume the duplicate
+                    field += '"';
+                    DImplementation->src->Get(chr); // consume the next quote
+                } 
+                else {
+                    // End of quoted section: add closing quote to field
+                    quotes = false;
+                    field += '"';
+                }
             }
         } else if (chr == DImplementation->delimiter && !quotes) {
             // end of current field
