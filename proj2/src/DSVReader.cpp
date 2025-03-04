@@ -38,15 +38,16 @@ bool CDSVReader::ReadRow(std::vector<std::string> &row) {
         containschar = true;
          if (chr == '"') {
             if (quotes) {
-                // check if end quote
-                if (DImplementation->src->Peek(chr) && chr == '"') {
-                    field += '"'; //   
-                    DImplementation->src->Get(chr); // next char
+                // If we're inside quotes, check if the next character is another quote for escaping
+                char nextChar;
+                if (DImplementation->src->Peek(nextChar) && nextChar == '"') {
+                    field += '"'; // append the escaped quote
+                    DImplementation->src->Get(nextChar); // consume the extra quote
                 } else {
-                    quotes = false; // no longer in quotes
+                    quotes = false; // closing quote
                 }
             } else {
-                // enter quotes
+                // start quoted field
                 quotes = true;
             }
         } else if (chr == DImplementation->delimiter && !quotes) {
