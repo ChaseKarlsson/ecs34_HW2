@@ -48,6 +48,7 @@ bool CDSVReader::ReadRow(std::vector<std::string> &row) {
             } else {
                 // enter quotes
                 quotes = true;
+                field += '"';
             }
         } else if (chr == DImplementation->delimiter && !quotes) {
             // end of current field
